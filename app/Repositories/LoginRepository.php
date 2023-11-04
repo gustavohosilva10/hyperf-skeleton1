@@ -3,52 +3,70 @@
 namespace App\Repositories;
 
 use App\Interfaces\LoginRepositoryInterface;
-use App\Models\User;
+use App\Model\User;
 use App\Request\LoginRequest;
+use Firebase\JWT\JWT;
+use Ramsey\Uuid\Uuid;
+use Carbon\Carbon;
+use Hyperf\Utils\Str;
 
 class LoginRepository implements LoginRepositoryInterface 
 {
-    public function login($request) 
-    {
-        $email = $request->email;
-        $password = $request->password;
+    protected $jwtSecretKey;
 
-        if ($this->authenticateUser($email, $password)) {
-            $token = JWT::encode([
-                'username' => $username,
-            ], config('jwt.secret'));
-    
-            return [
-                'access_token' => $token,
-                'token_type' => 'bearer',
-                'expires_in' => config('jwt.ttl') * 60, 
-            ];
-        }
-    
-        return [
-            'message' => 'Credenciais inválidas',
-        ];
+    public function __construct()
+    {
+        $this->jwtSecretKey = env('JWT_SECRET_KEY');
     }
 
-    private function authenticateUser($email, $password)
+    public function login($request)
     {
-        $validator = $this->getValidationFactory()->make(
-            ['email' => $email, 'password' => $password],
-            (new LoginRequest())->rules(),
-            (new LoginRequest())->messages()
-        );
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        if ($validator->fails()) {
-            return false; 
+        $user = $this->getUserByEmail($email);
+
+        if (!$user) {
+            return ['error' => 'Usuário não encontrado'];
         }
 
-        $user = User::where('email', $email)->first();
+        if (password_verify($password, $user->password)) {
+            $tokenPayload = [
+                'uuid' => $user->uuid,
+                'email' => $user->email,
+            ];
 
-        if (!$user || !password_verify($password, $user->password)) {
-            return false; 
+            $token = JWT::encode($tokenPayload, $this->jwtSecretKey, 'HS256');
+
+            return ['token' => $token];
+        } else {
+            return ['error' => 'Senha incorreta'];
         }
+    }
 
-        return true; 
+    private function getUserByEmail($email)
+    {
+        return User::where('email', $email)->first();
+    }
+
+    public function register($request)
+    {
+        $user = User::create([
+            'uuid' => Uuid::uuid4()->toString(),
+            'name' => $request->input('name'), 
+            'email' => $request->input('email'), 
+            'birth_date' => $request->input('birth_date'), 
+            'document' => $request->input('document'), 
+            'cellphone' => $request->input('cellphone'), 
+            'password' => password_hash($request->input('password'), PASSWORD_BCRYPT), 
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        
+        if($user){
+            return true;
+        }
+        return false;
     }
 
 }

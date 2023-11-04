@@ -2,6 +2,10 @@ version: '3'
 services:
   hyperf-skeleton:
     container_name: hyperf-skeleton
+    entrypoint: 
+      - php
+      - bin/hyperf.php
+      - server:watch
     image: hyperf
     build:
       context: .
@@ -15,13 +19,14 @@ services:
       - hyperf-network
     environment:
       - APP_ENV=dev
-      - SCAN_CACHEABLE=false
+      - SCAN_CACHEABLE=true
       - DB_CONNECTION=mysql
       - DB_HOST=hyperf-skeleton-mariadb
       - DB_PORT=3306
-      - DB_DATABASE=petcare  
+      - DB_DATABASE=petcare
       - DB_USERNAME=root
       - DB_PASSWORD=secret
+
 
   hyperf-skeleton-mariadb:
     container_name: hyperf-skeleton-mariadb

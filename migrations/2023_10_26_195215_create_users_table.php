@@ -12,11 +12,13 @@ class CreateUsersTable extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->primary()->comment('UUID'); // Utiliza UUID como chave primária
-            $table->string('document', 20)->unique();
+            $table->bigIncrements('id');
+            $table->uuid('uuid');
             $table->string('name', 60);
             $table->string('email', 60)->unique();
             $table->date('birth_date');
+            $table->string('document', 20)->unique();
+            $table->string('cellphone', 20)->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

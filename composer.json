@@ -22,6 +22,7 @@
         "hyperf/engine": "^2.10",
         "hyperf/framework": "~3.0.0",
         "hyperf/guzzle": "~3.0.0",
+        "hyperf/http-message": "^3.0",
         "hyperf/http-server": "~3.0.0",
         "hyperf/json-rpc": "~3.0.0",
         "hyperf/logger": "~3.0.0",
@@ -30,7 +31,11 @@
         "hyperf/redis": "~3.0.0",
         "hyperf/rpc": "~3.0.0",
         "hyperf/rpc-client": "~3.0.0",
-        "hyperf/rpc-server": "~3.0.0"
+        "hyperf/rpc-server": "~3.0.0",
+        "hyperf/session": "^3.0",
+        "hyperf/validation": "^3.0",
+        "league/oauth2-server": "^8.5",
+        "ramsey/uuid": "^4.7"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",

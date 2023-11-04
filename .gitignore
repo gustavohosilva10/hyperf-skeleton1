@@ -7,8 +7,9 @@
 runtime/
 vendor/
 .phpintel/
-.env
 .DS_Store
 .phpunit*
 *.cache
 .vscode/
+.docker/
+.docker/mariadb/

@@ -1,32 +1,46 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Model;
 
 use Hyperf\DbConnection\Model\Model;
 
 /**
- * @property $id
- * @property $name
- * @property $email
- * @property $created_at
- * @property $updated_at
+ * @property string $id 
+ * @property string $document 
+ * @property string $name 
+ * @property string $email 
+ * @property string $cellphone 
+ * @property string $birth_date 
+ * @property string $password 
+ * @property string $remember_token 
+ * @property \Carbon\Carbon $created_at 
+ * @property \Carbon\Carbon $updated_at 
  */
 class User extends Model
 {
     /**
-     * @var string
+     * The table associated with the model.
      */
-    public $keyType = 'string';
-
-    /**
-     * @var bool
-     */
-    public $incrementing = false;
+    protected ?string $table = 'users';
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var array
      */
-    protected $fillable = ['id', 'name', 'email', 'created_at', 'updated_at'];
+    protected array $fillable = [
+        'id',
+        'uuid',
+        'name',
+        'email', 
+        'birth_date',
+        'document', 
+        'cellphone',
+        'password'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     */
+    protected array $casts = ['created_at' => 'datetime', 'updated_at' => 'datetime'];
 }

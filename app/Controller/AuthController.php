@@ -4,33 +4,44 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Request\UserRegisterRequest;
 use App\Request\LoginRequest;
-use App\Intefaces\LoginRepositoryInterface;
-use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\RequestMapping;
-use Hyperf\HttpServer\Contract\RequestInterface;
+use Hyperf\Di\Annotation\Inject;
+use Hyperf\HttpServer\Contract\ResponseInterface;
+use App\Interfaces\LoginRepositoryInterface;
 
-class AuthController 
+class AuthController
 {
-    /* private LoginRepositoryInterface $loginRepository;
+    private $loginRepository;
+    private $response;
 
-    public function __construct(LoginRepositoryInterface $loginRepository) {
+    public function __construct(LoginRepositoryInterface $loginRepository, ResponseInterface $response)
+    {
         $this->loginRepository = $loginRepository;
+        $this->response = $response;
     }
 
     public function login(LoginRequest $request)
     {
+        var_dump($request);
         return $this->loginRepository->login($request);
     }
- */
-    public function index()
-    {
-       
 
-        return [
-            'method' =>'get',
-            'message' => "Hello .",
-        ];
+    public function register(UserRegisterRequest $request)
+    {
+        $result = $this->loginRepository->register($request);
+
+        if ($result) {
+            return $this->response->json([
+                'message' => 'Usuário cadastrado com sucesso.'
+            ])->withStatus(201);
+        } else {
+            return $this->response->json([
+                'error' => 'Não foi possível realizar o cadastro.'
+            ])->withStatus(500);
+        } 
     }
+
 }

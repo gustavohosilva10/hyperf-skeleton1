@@ -15,7 +15,7 @@ class LoginRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules():array
     {
         return [
             'email' => 'required|email',
@@ -23,19 +23,14 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages():array
     {
         return [
             'email.required' => 'O campo e-mail é obrigatório.',
             'email.email' => 'O campo e-mail deve ser um endereço de e-mail válido.',
             'password.required' => 'O campo senha é obrigatório.',
+            'password' => 'required|string|min:8',
         ];
     }
 
-    protected function failedValidation(Validator $validator)
-    {
-        throw new ValidationException($validator, $this->response(
-            $validator->errors()->first()
-        ));
-    }
 }

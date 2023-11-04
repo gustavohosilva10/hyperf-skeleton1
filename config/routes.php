@@ -13,6 +13,8 @@ use Hyperf\HttpServer\Router\Router;
 
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\AuthController@index');
 
-Router::get('/favicon.ico', function () {
-    return '';
+
+Router::addGroup('/api', function () {
+    Router::post('/login', 'App\Controller\AuthController@login');
+    Router::post('/register', 'App\Controller\AuthController@register');
 });
