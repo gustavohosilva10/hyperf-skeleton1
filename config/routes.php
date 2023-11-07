@@ -8,8 +8,9 @@ use App\Middleware\AuthMiddleware;
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\AuthController@index');
 
 Router::addGroup('/api', function () {
-    Router::post('/register', 'App\Controller\AuthController@register');
+    Router::post('/register', [\App\Controller\AuthController::class, 'register']);
     Router::post('/login', [\App\Controller\AuthController::class, 'login']);
 
     Router::get('/categorys/get', [\App\Controller\CategorysController::class, 'get'], ['middleware' => [AuthMiddleware::class]]);
+    Router::get('/bredPet/get/{id}', [\App\Controller\BreedPetController::class, 'get'], ['middleware' => [AuthMiddleware::class]]);
 });

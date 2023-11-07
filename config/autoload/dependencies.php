@@ -5,7 +5,9 @@ use App\Interfaces\LoginRepositoryInterface;
 use App\Repositories\LoginRepository; 
 use App\Interfaces\CategorysRepositoryInterface;
 use App\Repositories\CategorysRepository; 
-use App\Factory\LoginRepositoryFactory;
+use App\Repositories\BreedPetRepository; 
+use App\Interfaces\BreedPetRepositoryInterface;
+
 /**
  * This file is part of Hyperf.
  *
@@ -17,4 +19,5 @@ use App\Factory\LoginRepositoryFactory;
 return [
     LoginRepositoryInterface::class => LoginRepository::class, 
     CategorysRepositoryInterface::class => CategorysRepository::class,
+    BreedPetRepositoryInterface::class => BreedPetRepository::class
 ];
