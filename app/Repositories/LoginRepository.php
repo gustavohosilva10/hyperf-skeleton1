@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Interfaces\LoginRepositoryInterface;
 use App\Model\User;
-use App\Request\LoginRequest;
 use Firebase\JWT\JWT;
 use Ramsey\Uuid\Uuid;
 use Carbon\Carbon;
@@ -34,9 +33,10 @@ class LoginRepository implements LoginRepositoryInterface
             $tokenPayload = [
                 'uuid' => $user->uuid,
                 'email' => $user->email,
+                'iat' => time(),
             ];
 
-            $token = JWT::encode($tokenPayload, $this->jwtSecretKey, 'HS256');
+            $token = JWT::encode($tokenPayload, 'Y1DfneVfYAt757kFdONHCzmrjMYB3H0ZAc5UioehlQTKaJ735mVGE8io8gmnoQJP', 'HS256');
 
             return ['token' => $token];
         } else {

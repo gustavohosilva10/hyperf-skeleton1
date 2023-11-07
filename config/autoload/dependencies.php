@@ -3,6 +3,8 @@
 declare(strict_types=1);
 use App\Interfaces\LoginRepositoryInterface;
 use App\Repositories\LoginRepository; 
+use App\Interfaces\CategorysRepositoryInterface;
+use App\Repositories\CategorysRepository; 
 use App\Factory\LoginRepositoryFactory;
 /**
  * This file is part of Hyperf.
@@ -14,4 +16,5 @@ use App\Factory\LoginRepositoryFactory;
  */
 return [
     LoginRepositoryInterface::class => LoginRepository::class, 
+    CategorysRepositoryInterface::class => CategorysRepository::class,
 ];

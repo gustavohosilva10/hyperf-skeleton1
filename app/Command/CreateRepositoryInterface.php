@@ -7,6 +7,7 @@ namespace App\Command;
 use Hyperf\Command\Command as HyperfCommand;
 use Hyperf\Command\Annotation\Command;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Console\Input\InputArgument;
 
 #[Command]
 class CreateRepositoryInterface extends HyperfCommand
@@ -20,6 +21,7 @@ class CreateRepositoryInterface extends HyperfCommand
     {
         parent::configure();
         $this->setDescription('Hyperf Demo Command');
+        $this->addArgument('name', InputArgument::REQUIRED, 'Nome da interface a ser criada.');
     }
 
     public function handle()
@@ -39,7 +41,7 @@ class CreateRepositoryInterface extends HyperfCommand
        // Crie o arquivo "ExampleRepository.php" com conteúdo
        $repositoryFile = $directory . '/' . $name . '.php';
         if (!file_exists($repositoryFile)) {
-           $content = "<?php\n\nnamespace App\Interfaces;\n\nclass $name\n{\n    // Conteúdo do repositório\n}\n";
+           $content = "<?php\n\nnamespace App\Interfaces;\n\ninterface $name\n{\n    // Conteúdo do repositório\n}\n";
            file_put_contents($repositoryFile, $content);
            $this->line('Arquivo "ExampleRepository.php" criado com conteúdo.');
        } else {

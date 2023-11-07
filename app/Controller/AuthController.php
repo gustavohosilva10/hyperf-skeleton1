@@ -25,7 +25,6 @@ class AuthController
 
     public function login(LoginRequest $request)
     {
-        var_dump($request);
         return $this->loginRepository->login($request);
     }
 

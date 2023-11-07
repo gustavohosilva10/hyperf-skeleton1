@@ -1,20 +1,15 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of Hyperf.
- *
- * @link     https://www.hyperf.io
- * @document https://hyperf.wiki
- * @contact  group@hyperf.io
- * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
- */
+
 use Hyperf\HttpServer\Router\Router;
+use App\Middleware\AuthMiddleware;
 
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\AuthController@index');
 
-
 Router::addGroup('/api', function () {
-    Router::post('/login', 'App\Controller\AuthController@login');
     Router::post('/register', 'App\Controller\AuthController@register');
+    Router::post('/login', [\App\Controller\AuthController::class, 'login']);
+
+    Router::get('/categorys/get', [\App\Controller\CategorysController::class, 'get'], ['middleware' => [AuthMiddleware::class]]);
 });
