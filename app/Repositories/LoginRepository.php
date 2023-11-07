@@ -36,7 +36,7 @@ class LoginRepository implements LoginRepositoryInterface
                 'iat' => time(),
             ];
 
-            $token = JWT::encode($tokenPayload, 'Y1DfneVfYAt757kFdONHCzmrjMYB3H0ZAc5UioehlQTKaJ735mVGE8io8gmnoQJP', 'HS256');
+            $token = JWT::encode($tokenPayload, $this->jwtSecretKey, 'HS256');
 
             return ['token' => $token];
         } else {
