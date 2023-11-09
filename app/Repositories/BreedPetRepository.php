@@ -6,7 +6,7 @@ use App\Interfaces\BreedPetRepositoryInterface;
 
 class BreedPetRepository implements BreedPetRepositoryInterface
 {
-    public function get($id)
+    public function get($id):array
     {
         return BreedPets::where('id_category', $id)->with('category')->get();
     }

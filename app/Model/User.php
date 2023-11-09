@@ -46,5 +46,6 @@ class User extends Model
 
     protected array $hidden = [
         'password',
+        'remember_token'
     ];
 }
