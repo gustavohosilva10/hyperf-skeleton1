@@ -13,4 +13,8 @@ Router::addGroup('/api', function () {
 
     Router::get('/categorys/get', [\App\Controller\CategorysController::class, 'get'], ['middleware' => [AuthMiddleware::class]]);
     Router::get('/bredPet/get/{id}', [\App\Controller\BreedPetController::class, 'get'], ['middleware' => [AuthMiddleware::class]]);
+
+    Router::get('/user/pet/get', [\App\Controller\PetsController::class, 'get'], ['middleware' => [AuthMiddleware::class]]);
+    Router::post('/user/pet/register', [\App\Controller\PetsController::class, 'register'], ['middleware' => [AuthMiddleware::class]]);
+    
 });

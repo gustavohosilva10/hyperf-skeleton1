@@ -4,5 +4,6 @@ namespace App\Interfaces;
 
 interface PetsRepositoryInterface
 {
-    // Conteúdo do repositório
+    public function get();
+    public function register(array $request);
 }

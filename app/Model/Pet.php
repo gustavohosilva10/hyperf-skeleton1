@@ -7,6 +7,7 @@ namespace App\Model;
 use Hyperf\DbConnection\Model\Model;
 use App\Model\Categorys;
 use App\Model\BreedPets;
+use App\Model\User;
 
 /**
  */
@@ -15,7 +16,7 @@ class Pet extends Model
     /**
      * The table associated with the model.
      */
-    protected ?string $table = 'Pets';
+    protected ?string $table = 'pets';
 
     /**
      * The attributes that are mass assignable.
@@ -45,5 +46,10 @@ class Pet extends Model
     public function breed()
     {
         return $this->hasOne(BreedPets::class, 'id', 'id_breed');
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'id_user');
     }
 }

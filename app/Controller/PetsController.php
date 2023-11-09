@@ -6,11 +6,39 @@ namespace App\Controller;
 
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
+use App\Interfaces\PetsRepositoryInterface;
+use App\Request\PetsRegisterRequest;
 
 class PetsController
 {
-    public function index(RequestInterface $request, ResponseInterface $response)
+    private $petsRepository;
+    private $response;
+
+    public function __construct(PetsRepositoryInterface $petsRepository, ResponseInterface $response)
     {
-        return $response->raw('Hello Hyperf!');
+        $this->petsRepository = $petsRepository;
+        $this->response = $response;
+    }
+
+    public function get()
+    {
+        return $this->response->json([
+            'data' => $this->petsRepository->get()
+        ]);
+    }
+
+    public function register(PetsRegisterRequest $request)
+    {
+        $register = $this->petsRepository->register($request);
+
+        if ($register) {
+            return $this->response->json([
+                'message' => 'Pet cadastrado com sucesso.'
+            ])->withStatus(201);
+        } else {
+            return $this->response->json([
+                'error' => 'Não foi possível realizar o cadastro.'
+            ])->withStatus(500);
+        } 
     }
 }

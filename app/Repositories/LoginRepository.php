@@ -31,6 +31,7 @@ class LoginRepository implements LoginRepositoryInterface
 
         if (password_verify($password, $user->password)) {
             $tokenPayload = [
+                'id' => $user->id,
                 'uuid' => $user->uuid,
                 'email' => $user->email,
                 'iat' => time(),
