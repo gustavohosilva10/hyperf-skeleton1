@@ -43,4 +43,8 @@ class User extends Model
      * The attributes that should be cast to native types.
      */
     protected array $casts = ['created_at' => 'datetime', 'updated_at' => 'datetime'];
+
+    protected array $hidden = [
+        'password',
+    ];
 }

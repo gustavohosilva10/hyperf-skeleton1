@@ -7,9 +7,11 @@ use App\Interfaces\CategorysRepositoryInterface;
 use App\Repositories\CategorysRepository; 
 use App\Repositories\BreedPetRepository; 
 use App\Interfaces\BreedPetRepositoryInterface;
-
 use App\Repositories\PetsRepository; 
 use App\Interfaces\PetsRepositoryInterface;
+
+use App\Repositories\UserRepository; 
+use App\Interfaces\UserRepositoryInterface;
 
 /**
  * This file is part of Hyperf.
@@ -24,4 +26,5 @@ return [
     CategorysRepositoryInterface::class => CategorysRepository::class,
     BreedPetRepositoryInterface::class => BreedPetRepository::class,
     PetsRepositoryInterface::class => PetsRepository::class,
+    UserRepositoryInterface::class => UserRepository::class,
 ];
