@@ -6,7 +6,7 @@ use App\Interfaces\CategorysRepositoryInterface;
 
 class CategorysRepository implements CategorysRepositoryInterface
 {
-    public function get():array
+    public function get()
     {
         return Categorys::all();
     }

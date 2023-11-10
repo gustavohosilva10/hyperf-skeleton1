@@ -28,7 +28,7 @@ class PetsRepository implements PetsRepositoryInterface
         ->get();
     } 
 
-    public function register($request)
+    public function register($request):bool
     {
         $pet = Pet::create([
             'uuid' => Uuid::uuid4()->toString(),

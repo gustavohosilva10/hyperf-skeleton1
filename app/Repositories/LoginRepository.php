@@ -50,7 +50,7 @@ class LoginRepository implements LoginRepositoryInterface
         return User::where('email', $email)->first();
     }
 
-    public function register($request)
+    public function register($request):bool
     {
         $user = User::create([
             'uuid' => Uuid::uuid4()->toString(),

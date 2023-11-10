@@ -18,7 +18,7 @@ class UserRepository implements UserRepositoryInterface
         $this->decodedToken = $container->get('user');
     }
 
-    public function update($request)
+    public function update($request):bool
     {
         $user = User::find($this->decodedToken->id);
 

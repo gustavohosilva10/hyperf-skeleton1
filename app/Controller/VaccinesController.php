@@ -26,4 +26,19 @@ class VaccinesController
             'data' => $this->vaccinesRepository->get($id)
         ]);
     }
+
+    public function register(VaccinesRequest $request)
+    {
+        $register = $this->vaccinesRepository->register($request);
+
+        if ($register) {
+            return $this->response->json([
+                'message' => 'Vaccina cadastrada com sucesso.'
+            ])->withStatus(201);
+        } else {
+            return $this->response->json([
+                'error' => 'Não foi possível realizar o cadastro.'
+            ])->withStatus(500);
+        } 
+    }
 }

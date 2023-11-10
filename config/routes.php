@@ -19,4 +19,7 @@ Router::addGroup('/api', function () {
     Router::get('/user/pet/get', [\App\Controller\PetsController::class, 'get'], ['middleware' => [AuthMiddleware::class]]);
     Router::post('/user/pet/register', [\App\Controller\PetsController::class, 'register'], ['middleware' => [AuthMiddleware::class]]);
 
+    Router::get('/vaccines/get/{id}', [\App\Controller\VaccinesController::class, 'get'], ['middleware' => [AuthMiddleware::class]]);
+
+
 });
