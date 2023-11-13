@@ -7,7 +7,7 @@ namespace App\Controller;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use App\Interfaces\MedicamentsRepositoryInterface;
-use App\Request\VaccinesRequest;
+use App\Request\MedicamentsRequest;
 
 class MedicamentsController
 {
