@@ -11,10 +11,11 @@ use App\Repositories\PetsRepository;
 use App\Interfaces\PetsRepositoryInterface;
 use App\Repositories\UserRepository; 
 use App\Interfaces\UserRepositoryInterface;
-
 use App\Repositories\VaccinesRepository; 
 use App\Interfaces\VaccinesRepositoryInterface;
 
+use App\Repositories\MedicamentsRepository; 
+use App\Interfaces\MedicamentsRepositoryInterface;
 /**
  * This file is part of Hyperf.
  *
@@ -30,4 +31,5 @@ return [
     PetsRepositoryInterface::class => PetsRepository::class,
     UserRepositoryInterface::class => UserRepository::class,
     VaccinesRepositoryInterface::class => VaccinesRepository::class,
+    MedicamentsRepositoryInterface::class => MedicamentsRepository::class,
 ];
