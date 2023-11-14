@@ -4,6 +4,7 @@ namespace App\Repositories;
 use Hyperf\Di\Container;
 use App\Model\User;
 use App\Model\Pet;
+use App\Model\History;
 use App\Interfaces\PetsRepositoryInterface;
 use Ramsey\Uuid\Uuid;
 use Carbon\Carbon;
@@ -47,5 +48,38 @@ class PetsRepository implements PetsRepositoryInterface
             return true;
         }
         return false;
+    }
+
+    public function searchPet($uuid)
+    {
+        $pet = Pet::where('uuid', $uuid)    
+        ->with('user')
+        ->with('breed')
+        ->with('category')
+        ->get();
+    }
+
+    public function getCoordinatesPet($request)
+    {
+        $response = Http::withHeaders([
+            'X-RapidAPI-Key' => env('RAPIDAPIKEY'),
+            'X-RapidAPI-Host' => env('RAPIDAPIHOST')
+        ])->get(env('RAPIDAPIURL'), [
+            'latlng' => $request->lat.','.$request->long,
+            'language' => 'br'
+        ]);
+        $address = json_decode($response->getBody(), true);
+        
+        if($address){
+            $this->registerHistory($address);
+        }
+    }
+
+    private function registerHistory($address): void
+    {
+        $data = new History();
+        $data->address = $address['results'][0]['formatted_address'];
+        $data->id_pet = $request->id_pet;
+        $data->save();
     }
 }

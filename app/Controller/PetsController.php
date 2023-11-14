@@ -41,4 +41,16 @@ class PetsController
             ])->withStatus(500);
         } 
     }
+
+    public function searchPet(string $uuid)
+    {
+        return $this->response->json([
+            'data' => $this->petsRepository->searchPet($uuid)
+        ]);
+    }
+
+    public function registerHistory(Request $request): void
+    {
+        $register = $this->petsRepository->registerHistory($request);
+    }
 }

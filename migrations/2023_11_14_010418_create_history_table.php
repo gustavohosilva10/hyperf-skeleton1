@@ -13,6 +13,8 @@ class CreateHistoryTable extends Migration
     {
         Schema::create('history', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('id_pet');
+            $table->string('address',160);
             $table->datetimes();
         });
     }
