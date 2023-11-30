@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Hyperf\HttpServer\Router\Router;
 use App\Middleware\AuthMiddleware;
 
-Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\AuthController@index');
+Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
 
 Router::addGroup('/api', function () {
     Router::get('/user/pet/searchPet/{uuid}', [\App\Controller\PetsController::class, 'searchPet']);

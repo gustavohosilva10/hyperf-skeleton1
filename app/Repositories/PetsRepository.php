@@ -75,7 +75,7 @@ class PetsRepository implements PetsRepositoryInterface
         }
     }
 
-    private function registerHistory($address): void
+    public function registerHistory($address): void
     {
         $data = new History();
         $data->address = $address['results'][0]['formatted_address'];

@@ -8,6 +8,7 @@ use Firebase\JWT\JWT;
 use Ramsey\Uuid\Uuid;
 use Carbon\Carbon;
 use Hyperf\Utils\Str;
+use DateTime;
 
 class LoginRepository implements LoginRepositoryInterface 
 {
@@ -56,7 +57,7 @@ class LoginRepository implements LoginRepositoryInterface
             'uuid' => Uuid::uuid4()->toString(),
             'name' => $request->input('name'), 
             'email' => $request->input('email'), 
-            'birth_date' => $request->input('birth_date'), 
+            'birth_date' =>  DateTime::createFromFormat('d-m-Y', $request->input('birth_date'))->format('Y-m-d'), 
             'document' => $request->input('document'), 
             'cellphone' => $request->input('cellphone'), 
             'password' => password_hash($request->input('password'), PASSWORD_BCRYPT), 

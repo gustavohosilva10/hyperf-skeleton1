@@ -11,7 +11,11 @@ use Hyperf\HttpServer\Annotation\RequestMapping;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use App\Interfaces\LoginRepositoryInterface;
+use Hyperf\Validation\ValidationException; 
 
+/**
+ * @Controller
+ */
 class AuthController
 {
     private $loginRepository;
@@ -25,14 +29,18 @@ class AuthController
 
     public function login(LoginRequest $request)
     {
-        return $this->loginRepository->login($request);
+        return $auth = $this->loginRepository->login($request);
     }
 
+    /**
+     * @RequestMapping(path="register", methods="post")
+     */
     public function register(UserRegisterRequest $request)
     {
+      
         $result = $this->loginRepository->register($request);
 
-        if ($result) {
+        if($result) {
             return $this->response->json([
                 'message' => 'Usuário cadastrado com sucesso.'
             ])->withStatus(201);
@@ -40,7 +48,7 @@ class AuthController
             return $this->response->json([
                 'error' => 'Não foi possível realizar o cadastro.'
             ])->withStatus(500);
-        } 
+        }
+    
     }
-
 }
