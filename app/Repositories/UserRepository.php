@@ -36,4 +36,9 @@ class UserRepository implements UserRepositoryInterface
         return false;
     }
 
+    public function getUser()
+    {
+        return User::find($this->decodedToken->id);
+    }
+
 }

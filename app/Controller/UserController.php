@@ -34,4 +34,11 @@ class UserController
             ])->withStatus(500);
         } 
     }
+
+    public function get()
+    {
+        return $this->response->json([
+            'data' => $this->userRepository->getUser()
+        ]);
+    }
 }

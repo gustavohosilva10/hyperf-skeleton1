@@ -20,7 +20,7 @@ class PetsRepository implements PetsRepositoryInterface
         $this->decodedToken = $container->get('user');
     }
 
-    public function get():array
+    public function get()
     {
         return Pet::where('id_user', $this->decodedToken->id)
         ->with('category')

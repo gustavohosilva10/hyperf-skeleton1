@@ -27,7 +27,6 @@ services:
       - DB_USERNAME=root
       - DB_PASSWORD=secret
 
-
   hyperf-skeleton-mariadb:
     container_name: hyperf-skeleton-mariadb
     image: mariadb:latest
@@ -40,6 +39,43 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "secret"
       MYSQL_DATABASE: "petcare"
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.8-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  laravel-project:
+    container_name: laravel-project
+    image: php:8.1-fpm
+    build:
+      context: /home/gustavo/laravel-mails  # Ajuste o caminho do contexto aqui
+    volumes:
+      - /home/gustavo/laravel-mails:/var/www/html  # Ajuste o caminho do volume aqui
+    ports:
+      - 6000:6000
+    networks:
+      - hyperf-network
+    environment:
+      - APP_ENV=dev
+      - DB_CONNECTION=mysql
+      - DB_HOST=hyperf-skeleton-mariadb
+      - DB_PORT=3306
+      - DB_DATABASE=laravel_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=secret
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    volumes:
+      - ./laravel:/var/www/html
+    ports:
+      - 9000:80
+    networks:
+      - hyperf-network
 
 networks:
   hyperf-network:

@@ -43,9 +43,15 @@ class User extends Model
      * The attributes that should be cast to native types.
      */
     protected array $casts = ['created_at' => 'datetime', 'updated_at' => 'datetime'];
+    protected array $appends = ['created_at'];
 
     protected array $hidden = [
         'password',
         'remember_token'
     ];
+
+    public function getCreatedAtAttribute()
+    {   
+        return date('d/m/Y', strtotime($this->attributes['created_at']));
+    }
 }
