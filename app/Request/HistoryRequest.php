@@ -8,7 +8,7 @@ use Hyperf\Validation\Request\FormRequest;
 use Hyperf\Validation\ValidationException;
 use Hyperf\Validation\Validator;
 
-class LoginRequest extends FormRequest
+class HistoryRequest extends FormRequest
 {
     public function authorize()
     {

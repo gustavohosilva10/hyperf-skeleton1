@@ -26,7 +26,7 @@ class UserRepository implements UserRepositoryInterface
 
             $user->name = $request->input('name');
             $user->email = $request->input('email');
-            $user->password = password_hash($request->input('password'), PASSWORD_BCRYPT);
+            $user->document = $request->input('document');
             $user->cellphone = $request->input('cellphone');
             $user->save();
 

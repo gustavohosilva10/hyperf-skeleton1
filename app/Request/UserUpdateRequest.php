@@ -17,8 +17,10 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:60',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8',
+            'email' => 'required|email|max:60',
+            'document' => 'required|string|max:20',
+            'cellphone' => 'required|string|max:20',
+            //'password' => 'required|string|min:8',
         ];
     }
 
@@ -30,10 +32,12 @@ class UserUpdateRequest extends FormRequest
             'name.max' => 'O campo nome não pode ter mais de :max caracteres.',
             'email.required' => 'O campo e-mail é obrigatório.',
             'email.email' => 'O campo e-mail deve ser um endereço de e-mail válido.',
-            'email.unique' => 'Já existe uma conta com este e-mail.',
-            'password.required' => 'O campo senha é obrigatório.',
-            'password.string' => 'O campo senha deve ser uma string.',
-            'password.min' => 'O campo senha deve ter pelo menos :min caracteres.',
+            'document.required' => 'O campo documento é obrigatório.',
+            'document.string' => 'O campo documento deve ser uma string.',
+            'document.max' => 'O campo documento não pode ter mais de :max caracteres.',
+            'cellphone.required' => 'O campo celular é obrigatório.',
+            'cellphone.string' => 'O campo celular deve ser uma string.',
+            'cellphone.max' => 'O campo celular não pode ter mais de :max caracteres.',
         ];
     }
 
